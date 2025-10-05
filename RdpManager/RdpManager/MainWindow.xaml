@@ -12,6 +12,10 @@
         <DataTemplate DataType="{x:Type viewmodels:RdpConnectionViewModel}">
             <views:RdpConnectionView />
         </DataTemplate>
+        
+        <DataTemplate DataType="{x:Type viewmodels:AddRdpConnectionViewModel}">
+            <views:AddRdpConnectionView />
+        </DataTemplate>
     </Window.Resources>
     
     <Grid>
@@ -19,23 +23,30 @@
             <ColumnDefinition Width="200"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <StackPanel Orientation="Vertical"
-                    Grid.Column="0"
-                    Background="LightGray">
-            <TextBlock Text="Connections"
+        <Grid Grid.Column="0">
+            <StackPanel Orientation="Vertical"
+                        Background="LightGray">
+                <TextBlock Text="Connections"
                        FontSize="18"
                        Margin="0 10 0 10"
                        FontWeight="DemiBold"
                        HorizontalAlignment="Center"/>
-            <ListBox ItemsSource="{Binding Connections}"
-                     SelectedItem="{Binding SelectedConnection, Mode=TwoWay}"
+                <ListBox ItemsSource="{Binding Connections}"
+                     SelectedItem="{Binding SelectedViewModel, Mode=TwoWay}"
                      DisplayMemberPath="Name"
                      Margin="10"
                      Background="White"
-                     BorderThickness="0"/>           
-        </StackPanel>
+                     BorderThickness="0"
+                     Name="ConnectionsListBox"/>
+            </StackPanel>
+            <Button Content="Add Connection"
+                    Command="{Binding ShowAddRdpConnectionCommand}"
+                    Margin="10"
+                    Padding="5"
+                    VerticalAlignment="Bottom"/>
+        </Grid>
         <Grid Grid.Column="1">
-            <ContentControl Content="{Binding SelectedConnection}"/>
+            <ContentControl Content="{Binding SelectedViewModel}"/>
         </Grid>
     </Grid>
 </Window>

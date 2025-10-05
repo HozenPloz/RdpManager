@@ -11,7 +11,9 @@ namespace RdpManager
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = new MainWindowViewModel();
+            DataContext = new MainWindowViewModel(ResetSelectedRdpConnection);
         }
+
+        private void ResetSelectedRdpConnection() => ConnectionsListBox.SelectedItem = null;
     }
 }
