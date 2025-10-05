@@ -1,0 +1,87 @@
+# OS-specific
+.DS_Store
+Thumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Visual Studio
+.vs/
+.vscode/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.rsuser
+*.csproj.user
+*.userprefs
+
+# Build results
+[Bb]in/
+[Oo]bj/
+[Rr]elease*/
+[Dd]ebug*/
+[Rr]eleases/
+x64/
+x86/
+[Aa][Rr][Mm]*/
+[Aa][Rr][Mm]64*/
+bld/
+[Oo]ut/
+[Bb]uild[Ll]og.*
+
+# Publish
+app.publish/
+publish/
+dist/
+
+# Logs
+*.log
+*.binlog
+
+# Test results
+[Tt]est[Rr]esult*/
+[Tt]est[Rr]esults/
+*.trx
+*.coverage
+*.coveragexml
+
+# NuGet
+packages/
+.nuget/packages/
+*.nupkg
+*.snupkg
+
+# Rider / ReSharper
+_ReSharper*/
+*.[Rr]e[Ss]harper
+.idea/
+*.DotSettings.user
+
+# StyleCop
+StyleCop.Cache
+
+# Database files
+*.mdf
+*.ldf
+*.dbmdl
+*.db
+*.sqlite
+
+# Sonar / Scanner
+.sonarqube/
+.scannerwork/
+
+# WPF generated
+*.g.cs
+*.g.i.cs
+*.i.cs
+*.baml
+
+# Certificates / keys (only ignore if not intended for source control)
+*.pfx
+*.snk
+
+# Misc
+*.orig
+*.bak
+*.swp
