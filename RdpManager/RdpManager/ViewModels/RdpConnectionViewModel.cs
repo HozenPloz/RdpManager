@@ -1,5 +1,7 @@
 ﻿using RdpManager.Commands;
+using RdpManager.Helpers;
 using RdpManager.Models;
+using System.Diagnostics;
 using System.Windows.Input;
 
 namespace RdpManager.ViewModels
@@ -84,7 +86,8 @@ namespace RdpManager.ViewModels
 
         private void Connect()
         {
-            // TODO: Implement RDP connection logic
+            var path = FileHelper.GetRdpFilePath(Name);
+            Process.Start("mstsc.exe", path);
         }
     }
 }
