@@ -1,4 +1,5 @@
 ﻿using RdpManager.Commands;
+using RdpManager.Helpers;
 using RdpManager.Models;
 using System.Windows.Input;
 
@@ -85,6 +86,7 @@ namespace RdpManager.ViewModels
 
             var newConnection = new RdpConnectionViewModel(new RdpConnection(Name, Address, Username, Password));
             MainWindowViewModel.Connections.Add(newConnection);
+            FileHelper.SaveRdpConnections(MainWindowViewModel.Connections.Select(c => new RdpConnection(c.Name, c.Address, c.Username, c.Password)).ToList());
 
             Name = string.Empty;
             Address = string.Empty;

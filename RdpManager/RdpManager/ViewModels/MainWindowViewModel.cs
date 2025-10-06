@@ -1,5 +1,5 @@
 ﻿using RdpManager.Commands;
-using RdpManager.Models;
+using RdpManager.Helpers;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 
@@ -29,9 +29,7 @@ namespace RdpManager.ViewModels
 
         public MainWindowViewModel(Action resetSelectedRdpConnection)
         {
-            // TODO: Save connections in a encrypted file
-            Connections.Add(new RdpConnectionViewModel(new RdpConnection("Server 1", "192.168.0.10", "admin", "pass")));
-            Connections.Add(new RdpConnectionViewModel(new RdpConnection("Server 2", "192.168.0.20", "user", "1234")));
+            Connections = new ObservableCollection<RdpConnectionViewModel>(FileHelper.LoadRdpConnections().Select(c => new RdpConnectionViewModel(c)));
 
             SelectedViewModel = Connections.FirstOrDefault();
 
