@@ -72,8 +72,9 @@ namespace RdpManager.Helpers
             }
         }
 
-        public static void DeleteCredentials(string target)
+        public static void DeleteCredentials(string address)
         {
+            var target = RDP_PREFIX + address;
             _ = CredDelete(target, CRED_TYPE_GENERIC, 0);
         }
 

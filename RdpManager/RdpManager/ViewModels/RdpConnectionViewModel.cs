@@ -2,6 +2,7 @@
 using RdpManager.Helpers;
 using RdpManager.Models;
 using System.Diagnostics;
+using System.Windows;
 using System.Windows.Input;
 
 namespace RdpManager.ViewModels
@@ -15,6 +16,7 @@ namespace RdpManager.ViewModels
             _connection = connection;
 
             ConnectCommand = new RelayCommand(_ => Connect());
+            DeleteRdpConnectionCommand = new RelayCommand(_ => DeleteRdpConnection());
         }
 
         public RdpConnection Connection
@@ -88,6 +90,24 @@ namespace RdpManager.ViewModels
         {
             var path = FileHelper.GetRdpFilePath(Name);
             Process.Start("mstsc.exe", path);
+        }
+
+        public ICommand DeleteRdpConnectionCommand { get; }
+
+        private void DeleteRdpConnection()
+        {
+            var result = MessageBox.Show(
+                "Are you sure that you want to delete the RDP connection?",
+                "confirmation",
+                MessageBoxButton.YesNo
+            );
+
+            if (result == MessageBoxResult.Yes)
+            {
+                MainWindowViewModel.Connections.Remove(this);
+                CredentialsHelper.DeleteCredentials(Address);
+                FileHelper.DeleteRdpFile(Name);
+            }
         }
     }
 }

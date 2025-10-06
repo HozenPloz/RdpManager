@@ -35,9 +35,24 @@ enablecredsspsupport:i:1";
                     Directory.CreateDirectory(RdpFolder);
                 }
 
-                var path = Path.Combine(RdpFolder, $"{name}.rdp");
+                var path = GetRdpFilePath(name);
 
                 File.WriteAllText(path, rdpContent);
+            }
+            catch
+            {
+            }
+        }
+
+        public static void DeleteRdpFile(string name)
+        {
+            try
+            {
+                var path = GetRdpFilePath(name);
+                if (File.Exists(path))
+                {
+                    File.Delete(path);
+                }
             }
             catch
             {
