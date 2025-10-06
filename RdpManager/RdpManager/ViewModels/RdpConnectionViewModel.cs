@@ -15,8 +15,16 @@ namespace RdpManager.ViewModels
         {
             _connection = connection;
 
+            _name = _connection.Name;
+            _address = _connection.Address;
+            _username = _connection.Username;
+            _password = _connection.Password;
+
             ConnectCommand = new RelayCommand(_ => Connect());
             DeleteRdpConnectionCommand = new RelayCommand(_ => DeleteRdpConnection());
+            EditRdpConnectionCommand = new RelayCommand(_ => EditRdpConnection());
+            SaveEditRdpConnectionCommand = new RelayCommand(_ => SaveEditRdpConnection());
+            CancelEditRdpConnectionCommand = new RelayCommand(_ => CancelEditRdpConnection());
         }
 
         public RdpConnection Connection
@@ -32,53 +40,89 @@ namespace RdpManager.ViewModels
             }
         }
 
+        private bool _isEditMode;
+        public bool IsEditMode
+        {
+            get => _isEditMode;
+            set
+            {
+                if (_isEditMode != value)
+                {
+                    _isEditMode = value;
+                    IsEditModeVisibility = _isEditMode ? Visibility.Visible : Visibility.Collapsed;
+                    IsNotEditModeVisibility = !_isEditMode ? Visibility.Visible : Visibility.Collapsed;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        public Visibility IsEditModeVisibility
+        {
+            get => _isEditMode ? Visibility.Visible : Visibility.Collapsed;
+            set
+            {
+                OnPropertyChanged();
+            }
+        }
+        public Visibility IsNotEditModeVisibility
+        {
+            get => !_isEditMode ? Visibility.Visible : Visibility.Collapsed;
+            set
+            {
+                OnPropertyChanged();
+            }
+        }
+
+        private string _name;
         public string Name
         {
-            get => _connection.Name;
+            get => _name;
             set
             {
-                if (_connection.Name != value)
+                if (_name != value)
                 {
-                    _connection.Name = value;
+                    _name = value;
                     OnPropertyChanged();
                 }
             }
         }
 
+        private string _address;
         public string Address
         {
-            get => _connection.Address;
+            get => _address;
             set
             {
-                if (_connection.Address != value)
+                if (_address != value)
                 {
-                    _connection.Address = value;
+                    _address = value;
                     OnPropertyChanged();
                 }
             }
         }
 
+        private string _username;
         public string Username
         {
-            get => _connection.Username;
+            get => _username;
             set
             {
-                if (_connection.Username != value)
+                if (_username != value)
                 {
-                    _connection.Username = value;
+                    _username = value;
                     OnPropertyChanged();
                 }
             }
         }
 
+        private string _password;
         public string Password
         {
-            get => _connection.Password;
+            get => _password;
             set
             {
-                if (_connection.Password != value)
+                if (_password != value)
                 {
-                    _connection.Password = value;
+                    _password = value;
                     OnPropertyChanged();
                 }
             }
@@ -108,6 +152,56 @@ namespace RdpManager.ViewModels
                 CredentialsHelper.DeleteCredentials(Address);
                 FileHelper.DeleteRdpFile(Name);
             }
+        }
+
+        public ICommand EditRdpConnectionCommand { get; }
+
+        private void EditRdpConnection()
+        {
+            IsEditMode = true;
+        }
+
+        public ICommand SaveEditRdpConnectionCommand { get; }
+
+        private void SaveEditRdpConnection()
+        {
+            if (Name == string.Empty
+                || Address == string.Empty)
+            {
+                return;
+            }
+
+            var oldName = _connection.Name;
+            var oldAddress = _connection.Address;
+            var oldUsername = _connection.Username;
+            var oldPassword = _connection.Password;
+            _connection.Name = Name;
+            _connection.Address = Address;
+            _connection.Username = Username;
+            _connection.Password = Password;
+            FileHelper.SaveRdpConnections(MainWindowViewModel.Connections.Select(c => c.Connection).ToList());
+            if (oldName != Name)
+            {
+                FileHelper.DeleteRdpFile(oldName);
+            }
+            if (oldAddress != Address || oldUsername != Username || oldPassword != Password)
+            {
+                CredentialsHelper.DeleteCredentials(oldAddress);
+                CredentialsHelper.StoreCredentials(Address, Username, Password);
+            }
+
+            IsEditMode = false;
+        }
+
+        public ICommand CancelEditRdpConnectionCommand { get; }
+
+        private void CancelEditRdpConnection()
+        {
+            Name = _connection.Name;
+            Address = _connection.Address;
+            Username = _connection.Username;
+            Password = _connection.Password;
+            IsEditMode = false;
         }
     }
 }
