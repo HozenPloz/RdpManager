@@ -7,12 +7,12 @@ namespace RdpManager.ViewModels
 {
     public class MainWindowViewModel : ViewModelBase
     {
-        private static ViewModelBase? _selectedViewModel;
         public static ObservableCollection<RdpConnectionViewModel> Connections { get; set; } = new();
 
         private Action ResetSelectedRdpConnection;
 
 
+        private ViewModelBase? _selectedViewModel;
         public ViewModelBase? SelectedViewModel
         {
             get => _selectedViewModel;
@@ -26,6 +26,10 @@ namespace RdpManager.ViewModels
             }
         }
 
+        private void SetSelectedViewModel(ViewModelBase viewModel)
+        {
+            SelectedViewModel = viewModel;
+        }
 
         public MainWindowViewModel(Action resetSelectedRdpConnection)
         {
@@ -43,7 +47,7 @@ namespace RdpManager.ViewModels
         private void ShowAddRdpConnection()
         {
             ResetSelectedRdpConnection();
-            SelectedViewModel = AddRdpConnectionViewModel.GetInstance();
+            SelectedViewModel = AddRdpConnectionViewModel.GetInstance(SetSelectedViewModel);
         }
     }
 }

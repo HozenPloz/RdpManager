@@ -7,13 +7,16 @@ namespace RdpManager.ViewModels
 {
     public class AddRdpConnectionViewModel : ViewModelBase
     {
-        private AddRdpConnectionViewModel()
+        private AddRdpConnectionViewModel(Action<ViewModelBase> setSelectedViewModel)
         {
+            SetSelectedViewModel = setSelectedViewModel;
             AddRdpConnectionCommand = new RelayCommand(_ => AddRdpConnection());
         }
 
+        private Action<ViewModelBase> SetSelectedViewModel;
+
         private static AddRdpConnectionViewModel? _instance;
-        public static AddRdpConnectionViewModel GetInstance() => _instance ??= new AddRdpConnectionViewModel();
+        public static AddRdpConnectionViewModel GetInstance(Action<ViewModelBase> setSelectedViewModel) => _instance ??= new AddRdpConnectionViewModel(setSelectedViewModel);
 
         private string _name = string.Empty;
         public string Name
@@ -88,6 +91,8 @@ namespace RdpManager.ViewModels
             MainWindowViewModel.Connections.Add(newConnection);
             FileHelper.SaveRdpConnections(MainWindowViewModel.Connections.Select(c => new RdpConnection(c.Name, c.Address, c.Username, c.Password)).ToList());
             CredentialsHelper.StoreCredentials(Address, Username, Password);
+
+            SetSelectedViewModel(newConnection);
 
             Name = string.Empty;
             Address = string.Empty;
