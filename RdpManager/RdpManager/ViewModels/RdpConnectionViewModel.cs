@@ -202,12 +202,11 @@ namespace RdpManager.ViewModels
             _connection.Password = Password;
             _connection.Notes = Notes;
             RdpFileHelper.AddOrUpdateRdpFile(Connection);
+            NotesFileHelper.AddOrUpdateConnectionNote(Name, Notes);
             if (oldName != Name)
             {
                 RdpFileHelper.DeleteRdpFile(oldName);
-                RdpFileHelper.AddOrUpdateRdpFile(Connection);
                 NotesFileHelper.DeleteConnectionNote(oldName);
-                NotesFileHelper.AddOrUpdateConnectionNote(Name, Notes);
             }
 
             if (oldAddress != Address || oldUsername != Username || oldPassword != Password)
