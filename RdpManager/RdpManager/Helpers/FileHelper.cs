@@ -1,5 +1,6 @@
 ﻿using RdpManager.Models;
 using System.IO;
+using System.Text.RegularExpressions;
 
 namespace RdpManager.Helpers
 {
@@ -7,26 +8,33 @@ namespace RdpManager.Helpers
     {
         private const string RdpFolder = "./RdpFiles/";
 
-        public static void SaveRdpConnections(List<RdpConnection> connections)
+        public static void AddOrUpdateRdpFile(RdpConnection connection, string importedRdpFileContent = "")
         {
-            foreach (var connection in connections)
+            var path = GetRdpFilePath(connection.Name);
+            string rdpContent = string.Empty;
+            if (!string.IsNullOrWhiteSpace(importedRdpFileContent))
             {
-                CreateRdpFile(connection.Address, connection.Username, connection.Name);
+                rdpContent = importedRdpFileContent;
             }
-        }
+            else if (File.Exists(path))
+            {
+                rdpContent = File.ReadAllText(path);
+            }
 
-        private static void CreateRdpFile(string address, string username, string name)
-        {
-            string rdpContent =
-$@"full address:s:{address}
-username:s:{username}
-prompt for credentials:i:1
+            if (string.IsNullOrWhiteSpace(rdpContent))
+            {
+                rdpContent =
+$@"prompt for credentials:i:1
 screen mode id:i:2
 desktopwidth:i:1920
 desktopheight:i:1080
 redirectdrives:i:1
 redirectprinters:i:1
 enablecredsspsupport:i:1";
+            }
+
+            AddOrUpdateRdpFileLine(ref rdpContent, "username:s:", connection.Username);
+            AddOrUpdateRdpFileLine(ref rdpContent, "full address:s:", connection.Address);
 
             try
             {
@@ -35,12 +43,22 @@ enablecredsspsupport:i:1";
                     Directory.CreateDirectory(RdpFolder);
                 }
 
-                var path = GetRdpFilePath(name);
-
                 File.WriteAllText(path, rdpContent);
             }
             catch
             {
+            }
+        }
+
+        private static void AddOrUpdateRdpFileLine(ref string rdpContent, string attributeToUpdate, string newValue)
+        {
+            if (!rdpContent.Contains($"{attributeToUpdate}"))
+            {
+                rdpContent = $"{attributeToUpdate}{newValue}\n{rdpContent}";
+            }
+            else
+            {
+                rdpContent = Regex.Replace(rdpContent, $@"{attributeToUpdate}.*", $"{attributeToUpdate}{newValue}");
             }
         }
 
@@ -102,7 +120,7 @@ enablecredsspsupport:i:1";
             return connections;
         }
 
-        private static bool TryReadAddressAndUsernameFromRdpFile(string filePath, out string address, out string username)
+        public static bool TryReadAddressAndUsernameFromRdpFile(string filePath, out string address, out string username)
         {
             address = string.Empty;
             username = string.Empty;

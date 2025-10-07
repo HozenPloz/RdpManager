@@ -178,7 +178,7 @@ namespace RdpManager.ViewModels
             _connection.Address = Address;
             _connection.Username = Username;
             _connection.Password = Password;
-            FileHelper.SaveRdpConnections(MainWindowViewModel.Connections.Select(c => c.Connection).ToList());
+            FileHelper.AddOrUpdateRdpFile(Connection);
             if (oldName != Name)
             {
                 FileHelper.DeleteRdpFile(oldName);

@@ -7,24 +7,29 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <StackPanel Margin="20">
+        <Button Content="Import RDP file (optinal)"
+                Padding="0 10 0 10"
+                Margin="0 0 0 10"
+                BorderThickness="0"
+                Command="{Binding ImportRdpFileCommand}"/>
         <Label Content="Name:"/>
         <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"
-              Margin="0 0 0 0"/>
+                 Margin="0 0 0 0"/>
         <Label Content="Address:"/>
         <TextBox Text="{Binding Address, UpdateSourceTrigger=PropertyChanged}"
-              Margin="0 0 0 0"/>
+                 Margin="0 0 0 0"/>
         <Label Content="Username:"/>
         <TextBox Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}"
-              Margin="0 0 0 0"/>
+                 Margin="0 0 0 0"/>
         <Label Content="Password:"/>
         <TextBox Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}"
-              Margin="0 0 0 0"/>
+                 Margin="0 0 0 0"/>
 
         <Button Content="Add Connection"
-             Command="{Binding AddRdpConnectionCommand}"
-             HorizontalAlignment="Center"
-             Margin="20 30 20 0"
-             Padding="20 5 20 5"
-             BorderThickness="0"/>
+                Command="{Binding AddRdpConnectionCommand}"
+                HorizontalAlignment="Center"
+                Margin="20 30 20 0"
+                Padding="20 5 20 5"
+                BorderThickness="0"/>
     </StackPanel>
 </UserControl>
