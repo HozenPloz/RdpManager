@@ -1,5 +1,5 @@
 ﻿using RdpManager.Commands;
-using RdpManager.Helpers;
+using RdpManager.Helpers.General;
 using RdpManager.Models;
 using System.IO;
 using System.Windows.Input;
@@ -21,6 +21,8 @@ namespace RdpManager.ViewModels
         public static AddRdpConnectionViewModel GetInstance(Action<ViewModelBase> setSelectedViewModel) => _instance ??= new AddRdpConnectionViewModel(setSelectedViewModel);
 
         private string ImportedRdpFileContent = string.Empty;
+
+        #region Properties
 
         private string _name = string.Empty;
         public string Name
@@ -78,14 +80,30 @@ namespace RdpManager.ViewModels
             }
         }
 
+        private string _notes = string.Empty;
+        public string Notes
+        {
+            get => _notes;
+            set
+            {
+                if (_notes != value)
+                {
+                    _notes = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        #endregion
+
+        #region Commands related
+
         public ICommand AddRdpConnectionCommand { get; }
 
         private void AddRdpConnection()
         {
             if (Name == string.Empty
-                || Address == string.Empty
-                || Username == string.Empty
-                || Password == string.Empty)
+                || Address == string.Empty)
             {
                 return;
             }
@@ -95,10 +113,11 @@ namespace RdpManager.ViewModels
                 return;
             }
 
-            var newConnection = new RdpConnection(Name, Address, Username, Password);
+            var newConnection = new RdpConnection(Name, Address, Username, Password, Notes);
             var newConnectionViewModel = new RdpConnectionViewModel(newConnection);
             MainWindowViewModel.Connections.Add(newConnectionViewModel);
-            FileHelper.AddOrUpdateRdpFile(newConnection, ImportedRdpFileContent);
+            RdpFileHelper.AddOrUpdateRdpFile(newConnection, ImportedRdpFileContent);
+            NotesFileHelper.AddOrUpdateConnectionNote(Name, Notes);
             CredentialsHelper.DeleteCredentials(Address);
             CredentialsHelper.StoreCredentials(Address, Username, Password);
 
@@ -131,11 +150,13 @@ namespace RdpManager.ViewModels
                 return;
             }
 
-            _ = FileHelper.TryReadAddressAndUsernameFromRdpFile(filename, out var address, out var username);
+            _ = RdpFileHelper.TryReadAddressAndUsernameFromRdpFile(filename, out var address, out var username);
             Address = address;
             Username = username;
             Name = Path.GetFileNameWithoutExtension(filename);
             ImportedRdpFileContent = File.ReadAllText(filename);
         }
+
+        #endregion
     }
 }

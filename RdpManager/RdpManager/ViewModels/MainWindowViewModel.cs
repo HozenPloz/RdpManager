@@ -1,5 +1,5 @@
 ﻿using RdpManager.Commands;
-using RdpManager.Helpers;
+using RdpManager.Helpers.General;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 
@@ -33,7 +33,7 @@ namespace RdpManager.ViewModels
 
         public MainWindowViewModel(Action resetSelectedRdpConnection)
         {
-            Connections = new ObservableCollection<RdpConnectionViewModel>(FileHelper.LoadRdpConnections().Select(c => new RdpConnectionViewModel(c)));
+            Connections = new ObservableCollection<RdpConnectionViewModel>(RdpFileHelper.LoadRdpConnections().Select(c => new RdpConnectionViewModel(c)));
 
             SelectedViewModel = Connections.FirstOrDefault();
 

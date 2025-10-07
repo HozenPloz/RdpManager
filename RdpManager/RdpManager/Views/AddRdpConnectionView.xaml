@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:RdpManager.Views"
+             xmlns:CustomControls="clr-namespace:CustomControls;assembly=CustomControls"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <StackPanel Margin="20">
@@ -13,17 +14,16 @@
                 BorderThickness="0"
                 Command="{Binding ImportRdpFileCommand}"/>
         <Label Content="Name:"/>
-        <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"
-                 Margin="0 0 0 0"/>
+        <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
         <Label Content="Address:"/>
-        <TextBox Text="{Binding Address, UpdateSourceTrigger=PropertyChanged}"
-                 Margin="0 0 0 0"/>
+        <TextBox Text="{Binding Address, UpdateSourceTrigger=PropertyChanged}" />
         <Label Content="Username:"/>
-        <TextBox Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}"
-                 Margin="0 0 0 0"/>
+        <TextBox Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}" />
         <Label Content="Password:"/>
-        <TextBox Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}"
-                 Margin="0 0 0 0"/>
+        <TextBox Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}" />
+        <Label Content="Notes:"/>
+        <CustomControls:CustomRichTextBox x:Name="PasswordBoxControl"
+                                          Text="{Binding Notes, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
         <Button Content="Add Connection"
                 Command="{Binding AddRdpConnectionCommand}"

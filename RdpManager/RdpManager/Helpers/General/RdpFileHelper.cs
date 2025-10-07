@@ -2,9 +2,9 @@
 using System.IO;
 using System.Text.RegularExpressions;
 
-namespace RdpManager.Helpers
+namespace RdpManager.Helpers.General
 {
-    public class FileHelper
+    public class RdpFileHelper
     {
         private const string RdpFolder = "./RdpFiles/";
 
@@ -86,6 +86,7 @@ enablecredsspsupport:i:1";
                 return new List<RdpConnection>();
             }
 
+            var notesByConnectionName = NotesFileHelper.LoadConnectionNotes();
             var connections = new List<RdpConnection>();
             try
             {
@@ -108,7 +109,12 @@ enablecredsspsupport:i:1";
                         CredentialsHelper.StoreCredentials(address, username, password);
                     }
 
-                    connections.Add(new RdpConnection(name, address, username, password));
+                    if (!notesByConnectionName.TryGetValue(name, out var notes))
+                    {
+                        notes = string.Empty;
+                    }
+
+                    connections.Add(new RdpConnection(name, address, username, password, notes));
                 }
             }
             catch

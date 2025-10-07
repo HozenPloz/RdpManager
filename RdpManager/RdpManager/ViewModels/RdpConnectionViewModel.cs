@@ -1,5 +1,5 @@
 ﻿using RdpManager.Commands;
-using RdpManager.Helpers;
+using RdpManager.Helpers.General;
 using RdpManager.Models;
 using System.Diagnostics;
 using System.Windows;
@@ -19,6 +19,7 @@ namespace RdpManager.ViewModels
             _address = _connection.Address;
             _username = _connection.Username;
             _password = _connection.Password;
+            _notes = _connection.Notes;
 
             _isEditMode = false;
             _isPasswordVisible = false;
@@ -29,6 +30,8 @@ namespace RdpManager.ViewModels
             SaveEditRdpConnectionCommand = new RelayCommand(_ => SaveEditRdpConnection());
             CancelEditRdpConnectionCommand = new RelayCommand(_ => CancelEditRdpConnection());
         }
+
+        #region Properties
 
         public RdpConnection Connection
         {
@@ -127,11 +130,29 @@ namespace RdpManager.ViewModels
             }
         }
 
+        private string _notes;
+        public string Notes
+        {
+            get => _notes;
+            set
+            {
+                if (_notes != value)
+                {
+                    _notes = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        #endregion
+
+        #region Commands related
+
         public ICommand ConnectCommand { get; }
 
         private void Connect()
         {
-            var path = FileHelper.GetRdpFilePath(Name);
+            var path = RdpFileHelper.GetRdpFilePath(Name);
             Process.Start("mstsc.exe", path);
         }
 
@@ -149,7 +170,8 @@ namespace RdpManager.ViewModels
             {
                 MainWindowViewModel.Connections.Remove(this);
                 CredentialsHelper.DeleteCredentials(Address);
-                FileHelper.DeleteRdpFile(Name);
+                RdpFileHelper.DeleteRdpFile(Name);
+                NotesFileHelper.DeleteConnectionNote(Name);
             }
         }
 
@@ -178,11 +200,15 @@ namespace RdpManager.ViewModels
             _connection.Address = Address;
             _connection.Username = Username;
             _connection.Password = Password;
-            FileHelper.AddOrUpdateRdpFile(Connection);
+            RdpFileHelper.AddOrUpdateRdpFile(Connection);
             if (oldName != Name)
             {
-                FileHelper.DeleteRdpFile(oldName);
+                RdpFileHelper.DeleteRdpFile(oldName);
+                RdpFileHelper.AddOrUpdateRdpFile(Connection);
+                NotesFileHelper.DeleteConnectionNote(oldName);
+                NotesFileHelper.AddOrUpdateConnectionNote(Name, Notes);
             }
+
             if (oldAddress != Address || oldUsername != Username || oldPassword != Password)
             {
                 CredentialsHelper.DeleteCredentials(oldAddress);
@@ -202,5 +228,7 @@ namespace RdpManager.ViewModels
             Password = _connection.Password;
             IsEditMode = false;
         }
+
+        #endregion
     }
 }

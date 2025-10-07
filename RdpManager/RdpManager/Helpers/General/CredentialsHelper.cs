@@ -1,7 +1,7 @@
 ﻿using System.Runtime.InteropServices;
 using System.Text;
 
-namespace RdpManager.Helpers
+namespace RdpManager.Helpers.General
 {
     public class CredentialsHelper
     {
@@ -14,10 +14,10 @@ namespace RdpManager.Helpers
             public string Comment;
             public System.Runtime.InteropServices.ComTypes.FILETIME LastWritten;
             public uint CredentialBlobSize;
-            public IntPtr CredentialBlob;
+            public nint CredentialBlob;
             public uint Persist;
             public uint AttributeCount;
-            public IntPtr Attributes;
+            public nint Attributes;
             public string TargetAlias;
             public string UserName;
         }
@@ -29,10 +29,10 @@ namespace RdpManager.Helpers
         internal static extern bool CredDelete(string target, uint type, uint flags);
 
         [DllImport("advapi32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
-        internal static extern bool CredRead(string target, uint type, uint flags, out IntPtr credentialPtr);
+        internal static extern bool CredRead(string target, uint type, uint flags, out nint credentialPtr);
 
         [DllImport("advapi32.dll", SetLastError = false)]
-        internal static extern void CredFree(IntPtr buffer);
+        internal static extern void CredFree(nint buffer);
 
         const uint CRED_TYPE_GENERIC = 1;
         const uint CRED_PERSIST_LOCAL_MACHINE = 2;
@@ -55,7 +55,7 @@ namespace RdpManager.Helpers
                 CredentialBlob = Marshal.AllocCoTaskMem(byteArray.Length),
                 Persist = CRED_PERSIST_LOCAL_MACHINE,
                 AttributeCount = 0,
-                Attributes = IntPtr.Zero,
+                Attributes = nint.Zero,
                 TargetAlias = null,
                 UserName = username
             };
@@ -83,7 +83,7 @@ namespace RdpManager.Helpers
             username = string.Empty;
             password = string.Empty;
             var target = RDP_PREFIX + address;
-            IntPtr credPtr;
+            nint credPtr;
             if (!CredRead(target, CRED_TYPE_GENERIC, 0, out credPtr))
             {
                 _ = Marshal.GetLastWin32Error();
@@ -96,7 +96,7 @@ namespace RdpManager.Helpers
 
                 username = credential.UserName;
 
-                if (credential.CredentialBlobSize > 0 && credential.CredentialBlob != IntPtr.Zero)
+                if (credential.CredentialBlobSize > 0 && credential.CredentialBlob != nint.Zero)
                 {
                     byte[] blob = new byte[credential.CredentialBlobSize];
                     Marshal.Copy(credential.CredentialBlob, blob, 0, blob.Length);
