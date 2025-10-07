@@ -200,6 +200,7 @@ namespace RdpManager.ViewModels
             _connection.Address = Address;
             _connection.Username = Username;
             _connection.Password = Password;
+            _connection.Notes = Notes;
             RdpFileHelper.AddOrUpdateRdpFile(Connection);
             if (oldName != Name)
             {
@@ -226,6 +227,7 @@ namespace RdpManager.ViewModels
             Address = _connection.Address;
             Username = _connection.Username;
             Password = _connection.Password;
+            Notes = _connection.Notes;
             IsEditMode = false;
         }
 
