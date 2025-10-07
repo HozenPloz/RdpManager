@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36408.4 d17.14
+VisualStudioVersion = 17.14.36408.4
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RdpManager", "RdpManager\RdpManager.csproj", "{C8E1275E-C921-4FCD-8C18-DCDCD17D2133}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomControls", "CustomControls\CustomControls.csproj", "{787F43A3-D563-476C-BF0E-E42FC5E0DFF0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{C8E1275E-C921-4FCD-8C18-DCDCD17D2133}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C8E1275E-C921-4FCD-8C18-DCDCD17D2133}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C8E1275E-C921-4FCD-8C18-DCDCD17D2133}.Release|Any CPU.Build.0 = Release|Any CPU
+		{787F43A3-D563-476C-BF0E-E42FC5E0DFF0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{787F43A3-D563-476C-BF0E-E42FC5E0DFF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{787F43A3-D563-476C-BF0E-E42FC5E0DFF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{787F43A3-D563-476C-BF0E-E42FC5E0DFF0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

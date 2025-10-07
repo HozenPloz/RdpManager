@@ -2,8 +2,10 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:RdpManager"
+             xmlns:helpers="clr-namespace:RdpManager.Helpers"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <helpers:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+        <helpers:BoolToInvertedVisibilityConverter x:Key="BoolToInvertedVisibilityConverter"/>
     </Application.Resources>
 </Application>

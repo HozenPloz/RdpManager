@@ -28,8 +28,6 @@ namespace RdpManager.ViewModels
             EditRdpConnectionCommand = new RelayCommand(_ => EditRdpConnection());
             SaveEditRdpConnectionCommand = new RelayCommand(_ => SaveEditRdpConnection());
             CancelEditRdpConnectionCommand = new RelayCommand(_ => CancelEditRdpConnection());
-            ShowPasswordCommand = new RelayCommand(_ => HandleShowPassword());
-            HidePasswordCommand = new RelayCommand(_ => HandleHidePassword());
         }
 
         public RdpConnection Connection
@@ -86,26 +84,8 @@ namespace RdpManager.ViewModels
                 if (_isPasswordVisible != value)
                 {
                     _isPasswordVisible = value;
-                    ShowPassword = _isPasswordVisible ? Visibility.Visible : Visibility.Collapsed;
-                    HidePassword = !_isPasswordVisible ? Visibility.Visible : Visibility.Collapsed;
                     OnPropertyChanged();
                 }
-            }
-        }
-        public Visibility ShowPassword
-        {
-            get => _isPasswordVisible ? Visibility.Visible : Visibility.Collapsed;
-            set
-            {
-                OnPropertyChanged();
-            }
-        }
-        public Visibility HidePassword
-        {
-            get => !_isPasswordVisible ? Visibility.Visible : Visibility.Collapsed;
-            set
-            {
-                OnPropertyChanged();
             }
         }
 
@@ -239,20 +219,6 @@ namespace RdpManager.ViewModels
             Username = _connection.Username;
             Password = _connection.Password;
             IsEditMode = false;
-        }
-
-        public ICommand ShowPasswordCommand { get; }
-
-        private void HandleShowPassword()
-        {
-            IsPasswordVisible = true;
-        }
-
-        public ICommand HidePasswordCommand { get; }
-
-        private void HandleHidePassword()
-        {
-            IsPasswordVisible = false;
         }
     }
 }

@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:CustomControls="clr-namespace:CustomControls;assembly=CustomControls"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <StackPanel Margin="20">
@@ -64,42 +65,8 @@
         <TextBox Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}"
                  IsEnabled="{Binding IsEditMode}"/>
         <Label Content="Password:"/>
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="Auto" />
-            </Grid.ColumnDefinitions>
-
-            <Grid Grid.Column="0">
-            <TextBox Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}"
-                     IsEnabled="{Binding IsEditMode}"
-                     Visibility="{Binding ShowPassword}"/>
-            <PasswordBox x:Name="PasswordBox"
-                         PasswordChanged="PasswordBox_PasswordChanged"
-                         DataContextChanged="PasswordBox_DataContextChanged"
-                         IsEnabled="{Binding IsEditMode}"
-                         Visibility="{Binding HidePassword}"/>
-            </Grid>
-
-            <Grid Grid.Column="1"
-                  Margin="10 0 0 0">
-                <Button Command="{Binding ShowPasswordCommand}"
-                        Visibility="{Binding HidePassword}">
-                    <TextBlock FontFamily="Segoe MDL2 Assets" 
-                               Text="&#xe7b3;" 
-                               FontSize="16" 
-                               HorizontalAlignment="Center" 
-                               VerticalAlignment="Center"/>
-                </Button>
-                <Button Command="{Binding HidePasswordCommand}" 
-                    Visibility="{Binding ShowPassword}">
-                    <TextBlock FontFamily="Segoe MDL2 Assets" 
-                           Text="&#xed1a;" 
-                           FontSize="16" 
-                           HorizontalAlignment="Center" 
-                           VerticalAlignment="Center"/>
-                </Button>
-            </Grid>
-        </Grid>
+        <CustomControls:CustomPasswordBox Password="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                          IsEditable="{Binding IsEditMode}"
+                                          IsPasswordVisible="{Binding IsPasswordVisible, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
     </StackPanel>
 </UserControl>
