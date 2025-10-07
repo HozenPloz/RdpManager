@@ -23,7 +23,8 @@
         <TextBox Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}" />
         <Label Content="Notes:"/>
         <CustomControls:CustomRichTextBox x:Name="PasswordBoxControl"
-                                          Text="{Binding Notes, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                          Text="{Binding Notes, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                          IsEditable="True"/>
 
         <Button Content="Add Connection"
                 Command="{Binding AddRdpConnectionCommand}"

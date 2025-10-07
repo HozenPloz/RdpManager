@@ -75,6 +75,7 @@
                                           IsPasswordVisible="{Binding IsPasswordVisible, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
         <Label Content="Notes:"/>
         <CustomControls:CustomRichTextBox x:Name="PasswordBoxControl"
-                                          Text="{Binding Notes, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                          Text="{Binding Notes, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                          IsEditable="{Binding IsEditMode}"/>
     </StackPanel>
 </UserControl>

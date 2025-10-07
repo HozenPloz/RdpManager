@@ -7,5 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <RichTextBox x:Name="NotesRichTextBox"
-                 TextChanged="NotesRichTextBox_TextChanged"/>
+                 TextChanged="NotesRichTextBox_TextChanged"
+                 IsEnabled="{Binding IsEditable,
+                                     RelativeSource={RelativeSource AncestorType=UserControl}}"/>
 </UserControl>

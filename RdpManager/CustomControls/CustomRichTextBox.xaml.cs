@@ -45,6 +45,17 @@ namespace CustomControls
             }
         }
 
+        public static readonly DependencyProperty IsEditableProperty =
+            DependencyProperty.Register(
+                nameof(IsEditable), typeof(bool), typeof(CustomRichTextBox),
+                new PropertyMetadata(false));
+
+        public bool IsEditable
+        {
+            get { return (bool)GetValue(IsEditableProperty); }
+            set { SetValue(IsEditableProperty, value); }
+        }
+
         #endregion
 
         #region Event handlers
