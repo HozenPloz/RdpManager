@@ -24,26 +24,71 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid Grid.Column="0">
-            <StackPanel Orientation="Vertical"
-                        Background="LightGray">
+            <Grid Background="LightGray">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                
                 <TextBlock Text="Connections"
-                       FontSize="18"
-                       Margin="0 10 0 10"
-                       FontWeight="DemiBold"
-                       HorizontalAlignment="Center"/>
-                <ListBox ItemsSource="{Binding Connections}"
-                     SelectedItem="{Binding SelectedViewModel, Mode=TwoWay}"
-                     DisplayMemberPath="Name"
-                     Margin="10"
-                     Background="White"
-                     BorderThickness="0"
-                     Name="ConnectionsListBox"/>
-            </StackPanel>
-            <Button Content="Add Connection"
-                    Command="{Binding ShowAddRdpConnectionCommand}"
-                    Margin="10"
-                    Padding="5"
-                    VerticalAlignment="Bottom"/>
+                           FontSize="18"
+                           Margin="0 10 0 10"
+                           FontWeight="DemiBold"
+                           HorizontalAlignment="Center"
+                           Grid.Row="0"/>
+                <ScrollViewer VerticalScrollBarVisibility="Auto"
+                              HorizontalScrollBarVisibility="Disabled"
+                              Height="Auto"
+                              Grid.Row="1">
+                    <ListBox ItemsSource="{Binding Connections}"
+                         SelectedItem="{Binding SelectedViewModel, Mode=TwoWay}"
+                         DisplayMemberPath="Name"
+                         Margin="10 0 10 0"
+                         Background="LightGray"
+                         BorderThickness="0"
+                         Name="ConnectionsListBox">
+                        <ListBox.ItemContainerStyle>
+                            <Style TargetType="ListBoxItem">
+                                <Setter Property="Padding" Value="10 8"/>
+                                <Setter Property="Margin" Value="0 2"/>
+                                <Setter Property="Background" Value="White"/>
+                                <Setter Property="BorderThickness" Value="0 0 0 1"/>
+                                <Setter Property="BorderBrush" Value="LightGray"/>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="ListBoxItem">
+                                            <Border Background="{TemplateBinding Background}"
+                                                BorderBrush="{TemplateBinding BorderBrush}"
+                                                BorderThickness="{TemplateBinding BorderThickness}"
+                                                Padding="{TemplateBinding Padding}">
+                                                <ContentPresenter />
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#E0E0E0"/>
+                                        <Setter Property="Cursor" Value="Hand"/>
+                                    </Trigger>
+                                    <Trigger Property="IsSelected" Value="True">
+                                        <Setter Property="Background" Value="#0078D4"/>
+                                        <Setter Property="Foreground" Value="White"/>
+                                        <Setter Property="FontWeight" Value="SemiBold"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ListBox.ItemContainerStyle>
+                    </ListBox>
+                </ScrollViewer>
+                <Button Content="Add Connection"
+                        Command="{Binding ShowAddRdpConnectionCommand}"
+                        Margin="10"
+                        Padding="5"
+                        VerticalAlignment="Bottom"
+                        Grid.Row="2"/>
+            </Grid>
         </Grid>
         <Grid Grid.Column="1">
             <ContentControl Content="{Binding SelectedViewModel}"/>
