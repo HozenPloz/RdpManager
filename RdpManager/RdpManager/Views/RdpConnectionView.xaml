@@ -29,7 +29,8 @@
                     Padding="20 5 20 5"
                     BorderThickness="0"
                     Grid.Column="2"
-                    Visibility="{Binding IsEditModeVisibility}"/>
+                    Visibility="{Binding IsEditMode, 
+                                         Converter={StaticResource BoolToVisibilityConverter}}"/>
             <Button Content="Cancel"
                     Command="{Binding CancelEditRdpConnectionCommand}"
                     HorizontalContentAlignment="Right"
@@ -37,7 +38,8 @@
                     Padding="20 5 20 5"
                     BorderThickness="0"
                     Grid.Column="3"
-                    Visibility="{Binding IsEditModeVisibility}"/>
+                    Visibility="{Binding IsEditMode, 
+                                         Converter={StaticResource BoolToVisibilityConverter}}"/>
             <Button Content="Edit"
                     Command="{Binding EditRdpConnectionCommand}"
                     HorizontalContentAlignment="Right"
@@ -45,7 +47,8 @@
                     Padding="20 5 20 5"
                     BorderThickness="0"
                     Grid.Column="3"
-                    Visibility="{Binding IsNotEditModeVisibility}"/>
+                    Visibility="{Binding IsEditMode, 
+                                         Converter={StaticResource BoolToInvertedVisibilityConverter}}"/>
             <Button Content="Delete"
                     Command="{Binding DeleteRdpConnectionCommand}"
                     HorizontalContentAlignment="Right"

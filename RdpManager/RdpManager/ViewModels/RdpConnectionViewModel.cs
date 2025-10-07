@@ -52,26 +52,8 @@ namespace RdpManager.ViewModels
                 if (_isEditMode != value)
                 {
                     _isEditMode = value;
-                    IsEditModeVisibility = _isEditMode ? Visibility.Visible : Visibility.Collapsed;
-                    IsNotEditModeVisibility = !_isEditMode ? Visibility.Visible : Visibility.Collapsed;
                     OnPropertyChanged();
                 }
-            }
-        }
-        public Visibility IsEditModeVisibility
-        {
-            get => _isEditMode ? Visibility.Visible : Visibility.Collapsed;
-            set
-            {
-                OnPropertyChanged();
-            }
-        }
-        public Visibility IsNotEditModeVisibility
-        {
-            get => !_isEditMode ? Visibility.Visible : Visibility.Collapsed;
-            set
-            {
-                OnPropertyChanged();
             }
         }
 
