@@ -21,7 +21,9 @@
                     HorizontalAlignment="Left"
                     Padding="20 5 20 5"
                     BorderThickness="0"
-                    Grid.Column="0"/>
+                    Grid.Column="0"
+                    Visibility="{Binding IsEditMode, 
+                                         Converter={StaticResource BoolToInvertedVisibilityConverter}}"/>
             <Button Content="Save"
                     Command="{Binding SaveEditRdpConnectionCommand}"
                     HorizontalContentAlignment="Right"
