@@ -25,7 +25,7 @@
             <Button Content="Connect"
                     Command="{Binding ConnectCommand}"
                     HorizontalAlignment="Left"
-                    Padding="20 5 20 5"
+                    Padding="20 5"
                     BorderThickness="0"
                     Grid.Column="0"
                     Visibility="{Binding IsEditMode, 
@@ -34,7 +34,7 @@
                     Command="{Binding SaveEditRdpConnectionCommand}"
                     HorizontalContentAlignment="Right"
                     Margin="20 0 0 0"
-                    Padding="20 5 20 5"
+                    Padding="20 5"
                     BorderThickness="0"
                     Grid.Column="2"
                     Visibility="{Binding IsEditMode, 
@@ -43,7 +43,7 @@
                     Command="{Binding CancelEditRdpConnectionCommand}"
                     HorizontalContentAlignment="Right"
                     Margin="20 0 0 0"
-                    Padding="20 5 20 5"
+                    Padding="20 5"
                     BorderThickness="0"
                     Grid.Column="3"
                     Visibility="{Binding IsEditMode, 
@@ -52,7 +52,7 @@
                     Command="{Binding EditRdpConnectionCommand}"
                     HorizontalContentAlignment="Right"
                     Margin="20 0 0 0"
-                    Padding="20 5 20 5"
+                    Padding="20 5"
                     BorderThickness="0"
                     Grid.Column="3"
                     Visibility="{Binding IsEditMode, 
@@ -61,7 +61,7 @@
                     Command="{Binding DeleteRdpConnectionCommand}"
                     HorizontalContentAlignment="Right"
                     Margin="20 0 0 0"
-                    Padding="20 5 20 5"
+                    Padding="20 5"
                     BorderThickness="0"
                     Grid.Column="4"/>
         </Grid>
@@ -72,7 +72,6 @@
             <StackPanel>
                 <StackPanel.Style>
                     <Style TargetType="StackPanel">
-                        <Setter Property="Margin" Value="0"/>
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding ComputedVerticalScrollBarVisibility, RelativeSource={RelativeSource AncestorType=ScrollViewer}}" 
                                          Value="Visible">

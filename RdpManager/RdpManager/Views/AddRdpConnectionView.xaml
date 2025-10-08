@@ -13,7 +13,6 @@
             <StackPanel>
                 <StackPanel.Style>
                     <Style TargetType="StackPanel">
-                        <Setter Property="Margin" Value="0"/>
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding ComputedVerticalScrollBarVisibility, RelativeSource={RelativeSource AncestorType=ScrollViewer}}" 
                                          Value="Visible">
@@ -24,7 +23,7 @@
                 </StackPanel.Style>
                 
                 <Button Content="Import RDP file (optinal)"
-                        Padding="0 10 0 10"
+                        Padding="0 10"
                         Margin="0 0 0 10"
                         BorderThickness="0"
                         Command="{Binding ImportRdpFileCommand}"/>
