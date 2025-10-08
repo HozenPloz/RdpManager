@@ -7,30 +7,48 @@
              xmlns:CustomControls="clr-namespace:CustomControls;assembly=CustomControls"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <StackPanel Margin="20">
-        <Button Content="Import RDP file (optinal)"
-                Padding="0 10 0 10"
-                Margin="0 0 0 10"
-                BorderThickness="0"
-                Command="{Binding ImportRdpFileCommand}"/>
-        <Label Content="Name:"/>
-        <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
-        <Label Content="Address:"/>
-        <TextBox Text="{Binding Address, UpdateSourceTrigger=PropertyChanged}" />
-        <Label Content="Username:"/>
-        <TextBox Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}" />
-        <Label Content="Password:"/>
-        <TextBox Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}" />
-        <Label Content="Notes:"/>
-        <CustomControls:CustomRichTextBox x:Name="PasswordBoxControl"
-                                          Text="{Binding Notes, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                          IsEditable="True"/>
+    <Grid Margin="20">
+        <ScrollViewer VerticalScrollBarVisibility="Auto"
+                      HorizontalScrollBarVisibility="Disabled">
+            <StackPanel>
+                <StackPanel.Style>
+                    <Style TargetType="StackPanel">
+                        <Setter Property="Margin" Value="0"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding ComputedVerticalScrollBarVisibility, RelativeSource={RelativeSource AncestorType=ScrollViewer}}" 
+                                         Value="Visible">
+                                <Setter Property="Margin" Value="0 0 10 0"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </StackPanel.Style>
+                
+                <Button Content="Import RDP file (optinal)"
+                        Padding="0 10 0 10"
+                        Margin="0 0 0 10"
+                        BorderThickness="0"
+                        Command="{Binding ImportRdpFileCommand}"/>
+                <Label Content="Name:"/>
+                <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
+                <Label Content="Address:"/>
+                <TextBox Text="{Binding Address, UpdateSourceTrigger=PropertyChanged}" />
+                <Label Content="Username:"/>
+                <TextBox Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}" />
+                <Label Content="Password:"/>
+                <TextBox Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}" />
+                <Label Content="Notes:"/>
+                <CustomControls:CustomRichTextBox x:Name="PasswordBoxControl"
+                                                  Text="{Binding Notes, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                  IsEditable="True"
+                                                  MinHeight="100"/>
 
-        <Button Content="Add Connection"
-                Command="{Binding AddRdpConnectionCommand}"
-                HorizontalAlignment="Center"
-                Margin="20 30 20 0"
-                Padding="20 5 20 5"
-                BorderThickness="0"/>
-    </StackPanel>
+                <Button Content="Add Connection"
+                        Command="{Binding AddRdpConnectionCommand}"
+                        HorizontalAlignment="Center"
+                        Margin="20 30 20 0"
+                        Padding="20 5 20 5"
+                        BorderThickness="0"/>                
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
 </UserControl>

@@ -39,7 +39,6 @@
                            Grid.Row="0"/>
                 <ScrollViewer VerticalScrollBarVisibility="Auto"
                               HorizontalScrollBarVisibility="Disabled"
-                              Height="Auto"
                               Grid.Row="1">
                     <ListBox ItemsSource="{Binding Connections}"
                          SelectedItem="{Binding SelectedViewModel, Mode=TwoWay}"

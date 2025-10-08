@@ -6,8 +6,14 @@
              xmlns:CustomControls="clr-namespace:CustomControls;assembly=CustomControls"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <StackPanel Margin="20">
-        <Grid Margin="0 0 0 15">
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        
+        <Grid Margin="0 0 0 15"
+              Grid.Row="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
@@ -59,23 +65,41 @@
                     BorderThickness="0"
                     Grid.Column="4"/>
         </Grid>
-        
-        <Label Content="Name:"/>
-        <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"
-                 IsEnabled="{Binding IsEditMode}"/>
-        <Label Content="Address:"/>
-        <TextBox Text="{Binding Address, UpdateSourceTrigger=PropertyChanged}"
-                 IsEnabled="{Binding IsEditMode}"/>
-        <Label Content="Username:"/>
-        <TextBox Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}"
-                 IsEnabled="{Binding IsEditMode}"/>
-        <Label Content="Password:"/>
-        <CustomControls:CustomPasswordBox Password="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                          IsEditable="{Binding IsEditMode}"
-                                          IsPasswordVisible="{Binding IsPasswordVisible, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-        <Label Content="Notes:"/>
-        <CustomControls:CustomRichTextBox x:Name="PasswordBoxControl"
-                                          Text="{Binding Notes, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                          IsEditable="{Binding IsEditMode}"/>
-    </StackPanel>
+
+        <ScrollViewer VerticalScrollBarVisibility="Auto"
+                      HorizontalScrollBarVisibility="Disabled"
+                      Grid.Row="1">
+            <StackPanel>
+                <StackPanel.Style>
+                    <Style TargetType="StackPanel">
+                        <Setter Property="Margin" Value="0"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding ComputedVerticalScrollBarVisibility, RelativeSource={RelativeSource AncestorType=ScrollViewer}}" 
+                                         Value="Visible">
+                                <Setter Property="Margin" Value="0 0 10 0"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </StackPanel.Style>
+                
+                <Label Content="Name:"/>
+                <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"
+                         IsEnabled="{Binding IsEditMode}"/>
+                <Label Content="Address:"/>
+                <TextBox Text="{Binding Address, UpdateSourceTrigger=PropertyChanged}"
+                         IsEnabled="{Binding IsEditMode}"/>
+                <Label Content="Username:"/>
+                <TextBox Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}"
+                         IsEnabled="{Binding IsEditMode}"/>
+                <Label Content="Password:"/>
+                <CustomControls:CustomPasswordBox Password="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                  IsEditable="{Binding IsEditMode}"
+                                                  IsPasswordVisible="{Binding IsPasswordVisible, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <Label Content="Notes:"/>
+                <CustomControls:CustomRichTextBox Text="{Binding Notes, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                  IsEditable="{Binding IsEditMode}"
+                                                  MinHeight="100"/>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
 </UserControl>
